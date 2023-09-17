@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import { instance } from '../../api/apiSetting';
+
 export default {
   data() {
     return {
@@ -72,7 +74,7 @@ export default {
         rating: this.chosenRating,
       };
 
-      this.axios.post('', postData);
+      instance.post('', postData);
 
       this.enteredName = '';
       this.chosenRating = null;
