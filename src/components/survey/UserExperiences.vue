@@ -7,7 +7,9 @@
           >Load Submitted Experiences</base-button
         >
       </div>
-      <ul>
+      <p v-if="isLoading">Is Loading....!</p>
+      <p v-else-if="this.results.length === 0">No Data</p>
+      <ul v-else-if="this.results.length > 0">
         <survey-result
           v-for="result in results"
           :key="result.id"
@@ -27,6 +29,7 @@ export default {
   data() {
     return {
       results: [],
+      isLoading: false,
     };
   },
   components: {
@@ -34,7 +37,9 @@ export default {
   },
   methods: {
     loadExperiences() {
+      this.isLoading = true;
       instance('').then((res) => {
+        this.isLoading = false;
         const APIData = [];
         for (const id in res.data) {
           APIData.push({
